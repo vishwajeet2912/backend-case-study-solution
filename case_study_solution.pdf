@@ -1,0 +1,51 @@
+Case Study Solution – Backend Engineering Intern
+Candidate: Vishwajeet Kadam
+
+---------------------------------------------------------------
+PART 1 – CODE REVIEW & DEBUGGING
+Issues Found:
+1. No input validation
+2. SKU not checked for uniqueness
+3. Separate commits -> risk of inconsistency
+4. Missing exception handling
+5. Price not converted
+6. No HTTP codes
+7. Duplicate inventory possible
+
+
+
+---------------------------------------------------------------------
+Impact:
+- Data corruption and partial commits
+Corrected Code: (See code/create_product_fixed.py)
+-------------------------
+PART 2 – DATABASE DESIGN
+Tables:
+companies(id,name)
+warehouses(id,company_id,name)
+products(id,sku,name,price,type)
+suppliers(id,name,contact_email)
+product_suppliers(product_id,supplier_id)
+inventory(product_id,warehouse_id,quantity)
+inventory_history(id,product_id,warehouse_id,change,timestamp)
+bundle_items(parent_product_id,child_product_id,quantity)
+---------------------------------------------------------
+Questions:
+- Threshold per product?
+- Bundle auto-update?
+- Inventory history reason?
+- Supplier-company relationship?
+PART 3 – LOW STOCK API
+Endpoint: GET /api/companies/{company_id}/alerts/low-stock
+-----------------------------------------------------------
+Logic:
+1. Get warehouses for company
+2. Join inventory and products
+3. Filter quantity < threshold
+4. Join supplier info
+5. Calculate days_until_stockout
+Sample Response:
+{
+"alerts":[{"product_id":123,"current_stock":5}],
+"total_alerts":1
+}
