@@ -1,51 +1,93 @@
-Case Study Solution â€“ Backend Engineering Intern
-Candidate: Vishwajeet Kadam
----------------------------
-PART 1 â€“ CODE REVIEW & DEBUGGING
-Issues Identified:
-1. No input validation
-2. SKU uniqueness missing
-3. Two commits lead to inconsistency
-4. No rollback
-5. Incorrect price handling
-6. No HTTP status codes
-7. Duplicate inventory entries possible
---------------------------------------------------------------------
-Corrected Code Reasoning:
-- Added validation
-- Added SKU check
-- Single DB transaction
-- Rollback on failure
-- Proper responses
-(Full code in create_product_fixed.py)
---------------------------------
-PART 2 â€“ DATABASE DESIGN
-Tables:
-companies(id,name)
-warehouses(id,company_id,name)
-products(id,sku,name,price,type)
-suppliers(id,name,email)
-product_suppliers(product_id,supplier_id)
-inventory(product_id,warehouse_id,quantity)
-inventory_history(id,product_id,warehouse_id,change,timestamp)
-bundle_items(parent_product_id,child_product_id,quantity)
-------------------------------------------------------
-Questions to clarify:
-- Threshold per product?
-- Should bundles auto-update?
-- Should inventory history track reason?
----------------------------------------------------
-PART 3 â€“ LOW STOCK API
-Endpoint: GET /api/companies/{company_id}/alerts/low-stock
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/Contents 9 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
 
-Logic:
-1. Retrieve warehouses
-2. Join products + inventory
-3. Filter quantity < threshold
-4. Add supplier info
-5. Compute days_until_stockout
-Sample Response:
-{
-'alerts':[{'product_id':123,'current_stock':5}],
-'total_alerts':1
-}
+>> 
+  /Type /Page
+>>
+endobj
+5 0 obj
+<<
+/Contents 10 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+6 0 obj
+<<
+/PageMode /UseNone /Pages 8 0 R /Type /Catalog
+>>
+endobj
+7 0 obj
+<<
+/Author (\(anonymous\)) /CreationDate (D:20251110190720+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20251110190720+00'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
+  /Subject (\(unspecified\)) /Title (\(anonymous\)) /Trapped /False
+>>
+endobj
+8 0 obj
+<<
+/Count 2 /Kids [ 4 0 R 5 0 R ] /Type /Pages
+>>
+endobj
+9 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1202
+>>
+stream
+GatU2fl#P('Re;/go#]b'/,Lpb74_)]Z&o&OJK>=^'$,,Og`q8Ud@u$(k_g7YN/,M`_q?r$tLOMEd2iSV(Loha3&i8&\uJCp9b'i%K77sVr`GY$WI)bq8,0\H@>9&X4?YLqNugQSSUZ1/hkm<Q,CNG9A*_Gdo*WF(:%.^hsgn'me[\:A"jhl9gX'.P[S%2'_#ej4W'=>3ti=*@`&@ZMMhqfKjdT$!<4#5^I,>4$5%a(:Dm_Vn4T#>*[Ml;P8uVMM7<]MPSeQI?b"t,P&H9s\07))a8Y6?p'0BQiS,rfLulA_p5O,98$pWf(bX8#N0a#4A."7ZQhg8(r!&ALkjrUK^RNb_l;_>7hTO5Ml\&u>;^Mo[F%3?J+`o4X\;jWZMs&U]@^Y,h!Z,ici.ZjKFeO1<*%?u(h1Fb5B1N/T:7,Em6c?B%+lsm'(AP'G!Z=G^BF#KL@+(Kp'UigT7'Ok0SZJNJ@JGN@bh(Yd8i)Q$Z+rW+Ged^Fq?]fsH<KfG^Ae2e&<geo8t!s,]G=2(391+?%M?>rZVp/jIjpCW`tGXAKrg;I\*I)blo=E[GolEM`[HcX0e=0h;W-62EpQL;;MkM<Y2QmWhF4Y[7H0c?`&]&oaU!hL6Bg>Emc)#?i*]Y#*[ZaZ[i^inR0(?LN&Oe5o<E;+KOI>*Z3c(kaQk<VOsY`_Xnb2?[c6-'LH7ViDRYd)bC-:21-=6;4&:V1E&:fpdE0T-m&h*sV\4pDY8f.(=F7M@5tU=X9qiA3,#E6>%8JP[M:dBRD"j2C[Zu\5D"!"#X##kCUA&[(H]eP;B'-T[]=8QUP8JGg<8R507<mEslE(Dua/-/Z@28ep-CnC@$9fISrT?0a35Ni,Ct`W^1E]?2aJoRJH@:F$iXnOf7rbf^;hAKZUC<&Y^mHImW_b+rnrOV'hS?,;K'cR`;qp_@BqbD3/UYElT%Zu<,;9C[ip0mlj8KgB[Zr"ie8klE+%pcH<cED8C^hXEZC/Yq4*iM1+*%UXdij6B=4r9&=Nc5+<A@kj])Tg=h7YU_n%Z`f^E;@Kn6oXY`9LDKl+InT<7"`f@BNur`NNbsk3\?eg]-EEqp?`6;b"5`q:\4D&&Yd^W`oe;T1q,FG=FK.Vd;9jEl3N]:@MCmYk61d@?Afnd^/j1T'`Hu%=dG*.)!jV4N-]8E3ocG$0EYOd[Q3A$QKBOQ<MHj*5KNhSiH!/~>endstream
+endobj
+10 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 286
+>>
+stream
+Gas1Xb=]Z;']%q&c>KYH1cN[+WT^?$F`nrP,\*f#R5g7]PlA;DWO>g2*#Jn*4YK._5lPU*i.b`]:S8R&'pO@Xp^24-p^$*\1,"_BbHND;_C6J`,]n,O-Q'LDFYJ^H7ZiI0"8j(D1rQL9->Naqk#9lT1n2517^hd6ROdm:rL"%AE;1FnkJuLF<0kp]S^Q_2VqG!)9YJ6:d$#HWW-e^)FF3kiVAIBg<]tBSUh"+B;f=]t;7rF*eg_t8F4e:.FS@OT;]9A=^AcO/M:l1gRO.(K<WlcUb%O'~>endstream
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000073 00000 n 
+0000000114 00000 n 
+0000000221 00000 n 
+0000000333 00000 n 
+0000000536 00000 n 
+0000000740 00000 n 
+0000000808 00000 n 
+0000001091 00000 n 
+0000001156 00000 n 
+0000002449 00000 n 
+trailer
+<<
+/ID 
+[<d20ad3de18c0b9bdf46776512e0fc36a><d20ad3de18c0b9bdf46776512e0fc36a>]
+% ReportLab generated PDF document -- digest (http://www.reportlab.com)
+
+/Info 7 0 R
+/Root 6 0 R
+/Size 11
+>>
+startxref
+2826
+%%EOF
